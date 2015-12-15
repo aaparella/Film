@@ -62,12 +62,8 @@ func printIMDBRating(r string) {
 
 func printRatingBar(rating float64, color *color.Color) {
 	color.Printf("[")
-	for i := 0; float64(i) < math.Floor(rating); i++ {
-		color.Printf("=")
-	}
-	for i := math.Ceil(rating); i < 100; i++ {
-		color.Printf(" ")
-	}
+	color.Printf("%s", strings.Repeat("=", int(math.Floor(rating))))
+	color.Printf("%s", strings.Repeat(" ", int(100-math.Floor(rating))))
 	color.Printf("]")
 }
 

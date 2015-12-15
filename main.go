@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"log"
 	"math"
 	"net/http"
@@ -88,10 +87,10 @@ func getMovie(title string) (*Movie, error) {
 	if err != nil {
 		return nil, err
 	}
-	body, _ := ioutil.ReadAll(resp.Body)
+	defer resp.Body.Close()
 
 	var movie Movie
-	if err = json.Unmarshal(body, &movie); err != nil {
+	if err = json.NewDecoder(resp.Body).Decode(&movie); err != nil {
 		return nil, err
 	}
 

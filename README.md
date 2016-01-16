@@ -1,7 +1,7 @@
 Film
 ===
 
-A terribly named movie resource utility thing. Uses OMDB for movie information (http://http://www.omdbapi.com). 
+A terribly named movie resource utility thing. Uses OMDB for movie information (http://www.omdbapi.com). 
 
 Usage : 
 

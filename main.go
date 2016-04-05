@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"log"
@@ -10,12 +9,12 @@ import (
 	"os"
 	"strconv"
 	"strings"
-	"text/template"
 
 	"github.com/fatih/color"
 )
 
-var REQ = `http://www.omdbapi.com/?t={{.Title}}&y=&plot=short&r=json`
+var REQ1 = `http://www.omdbapi.com/?t=`
+var REQ2 = `&y=&plot=short&r=json`
 
 type Movie struct {
 	Title      string
@@ -73,17 +72,7 @@ func printValue(title, value string) {
 }
 
 func getMovie(title string) (*Movie, error) {
-	data := struct {
-		Title string
-	}{
-		title,
-	}
-
-	var URL bytes.Buffer
-	tpl, _ := template.New("req").Parse(REQ)
-	_ = tpl.Execute(&URL, data)
-
-	resp, err := http.Get(URL.String())
+	resp, err := http.Get(REQ1 + title + REQ2)
 	if err != nil {
 		return nil, err
 	}
